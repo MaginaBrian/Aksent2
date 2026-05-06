@@ -1,0 +1,201 @@
+{
+  "projects": [
+    {
+      "slug": "amcham",
+      "title": "American Chamber of Commerce Kenya",
+      "description": "Business summit brand development for AMCHAM Kenya.",
+      "images": [
+        "/projects/amcham/01.png",
+        "/projects/amcham/02.png",
+        "/projects/amcham/03.png",
+        "/projects/amcham/04.png",
+        "/projects/amcham/05.png",
+        "/projects/amcham/06.png",
+        "/projects/amcham/07.png",
+        "/projects/amcham/08.png",
+        "/projects/amcham/09.png",
+        "/projects/amcham/10.png",
+        "/projects/amcham/11.png"
+      ]
+    },
+    {
+      "slug": "hivos",
+      "title": "Hivos",
+      "description": "Knowledge publication and campaign design for Hivos.",
+      "images": [
+        "/projects/hivos/01.png",
+        "/projects/hivos/02.png",
+        "/projects/hivos/03.png",
+        "/projects/hivos/04.png",
+        "/projects/hivos/05.png",
+        "/projects/hivos/06.png",
+        "/projects/hivos/07.png",
+        "/projects/hivos/08.png",
+        "/projects/hivos/09.png",
+        "/projects/hivos/10.png",
+        "/projects/hivos/11.png",
+        "/projects/hivos/12.png"
+      ]
+    },
+    {
+      "slug": "womankind-worldwide",
+      "title": "WomanKind Worldwide",
+      "description": "Knowledge publication and policy brief design for WomanKind Worldwide.",
+      "primaryCapability": "publications",
+      "images": [
+        "/projects/womankind-worldwide/01.png",
+        "/projects/womankind-worldwide/02.png",
+        "/projects/womankind-worldwide/03.png",
+        "/projects/womankind-worldwide/04.png",
+        "/projects/womankind-worldwide/05.png"
+      ]
+    },
+    {
+      "slug": "african-biodigester",
+      "title": "African Biodigester Component-Kenya",
+      "description": "Campaign communication and visual identity for biodigester adoption programmes.",
+      "primaryCapability": "campaign",
+      "images": [
+        "/projects/african-biodester/1.jpg",
+        "/projects/african-biodester/2.jpg",
+        "/projects/african-biodester/3.jpg",
+        "/projects/african-biodester/4.jpg",
+        "/projects/african-biodester/5.jpg",
+        "/projects/african-biodester/6.jpg",
+        "/projects/african-biodester/7.jpg",
+        "/projects/african-biodester/8.jpg",
+        "/projects/african-biodester/9.jpg",
+        "/projects/african-biodester/10.jpg",
+        "/projects/african-biodester/11.jpg",
+        "/projects/african-biodester/12.jpg",
+        "/projects/african-biodester/13.jpg",
+        "/projects/african-biodester/14.jpg",
+        "/projects/african-biodester/15.jpg",
+        "/projects/african-biodester/16.jpg"
+      ]
+    },
+    {
+      "slug": "acre-africa",
+      "title": "ACRE Africa",
+      "description": "Profile and publication design for ACRE Africa.",
+      "primaryCapability": "publications",
+      "images": [
+        "/projects/acre-africa/09.jpg",
+        "/projects/acre-africa/21.png",
+        "/projects/acre-africa/22.png",
+        "/projects/acre-africa/23.png",
+        "/projects/acre-africa/24.png",
+        "/projects/acre-africa/25.png",
+        "/projects/acre-africa/26.png",
+        "/projects/acre-africa/27.png",
+        "/projects/acre-africa/28.png"
+      ]
+    },
+    {
+      "slug": "bima-salama",
+      "title": "Bima Salama",
+      "description": "Insurance and brand communication.",
+      "primaryCapability": "campaign",
+      "images": [
+        "/projects/bima-salama/01.jpg",
+        "/projects/bima-salama/02.jpg",
+        "/projects/bima-salama/03.jpg",
+        "/projects/bima-salama/04.jpg",
+        "/projects/bima-salama/05.jpg",
+        "/projects/bima-salama/06.jpg"
+      ]
+    },
+    {
+      "slug": "krk-advocates",
+      "title": "KRK Advocates",
+      "description": "Legal and brand communication for KRK Advocates.",
+      "primaryCapability": "brand",
+      "images": [
+        "/projects/krk-advocates/01.png",
+        "/projects/krk-advocates/02.png"
+      ]
+    },
+    {
+      "slug": "redss",
+      "title": "ReDSS",
+      "description": "Research and dissemination support for ReDSS.",
+      "primaryCapability": "publications",
+      "images": [
+        "/projects/redss/01.png",
+        "/projects/redss/02.png",
+        "/projects/redss/03.png",
+        "/projects/redss/04.png",
+        "/projects/redss/05.png",
+        "/projects/redss/06.png",
+        "/projects/redss/07.png",
+        "/projects/redss/08.png",
+        "/projects/redss/09.png",
+        "/projects/redss/10.png",
+        "/projects/redss/11.png",
+        "/projects/redss/12.png"
+      ]
+    },
+    {
+      "slug": "icpac",
+      "title": "ICPAC",
+      "description": "Knowledge and communication design for ICPAC.",
+      "primaryCapability": "institutional",
+      "images": [
+        "/projects/icpac/01.png",
+        "/projects/icpac/02.png",
+        "/projects/icpac/03.png",
+        "/projects/icpac/04.png",
+        "/projects/icpac/05.png",
+        "/projects/icpac/06.png",
+        "/projects/icpac/07.png",
+        "/projects/icpac/08.png",
+        "/projects/icpac/09.png"
+      ]
+    },
+    {
+      "slug": "movenpick",
+      "title": "Mövenpick",
+      "description": "Brand and experience design for Mövenpick.",
+      "images": [
+        "/projects/movenpick/01.png",
+        "/projects/movenpick/02.png",
+        "/projects/movenpick/03.png",
+        "/projects/movenpick/04.png"
+      ]
+    },
+    {
+      "slug": "sankara",
+      "title": "Sankara",
+      "description": "Brand and communication design for Sankara.",
+      "images": [
+        "/projects/sankara/01.png",
+        "/projects/sankara/02.png",
+        "/projects/sankara/03.png",
+        "/projects/sankara/04.png",
+        "/projects/sankara/05.png",
+        "/projects/sankara/06.png",
+        "/projects/sankara/07.png",
+        "/projects/sankara/08.png",
+        "/projects/sankara/09.png"
+      ]
+    }
+  ],
+  "clientLogos": [
+    { "name": "Acorn Law", "logo": "/client-logos/Acorn-Law-Logo-white-bg.png" },
+    { "name": "ACRE", "logo": "/client-logos/ACRE-LOGO-2.png" },
+    { "name": "Enaai", "logo": "/client-logos/Enaai.png" },
+    { "name": "Hivos", "logo": "/client-logos/Hivos-logo.png" },
+    { "name": "ICPAC", "logo": "/client-logos/Icpac-logo.png" },
+    { "name": "Kalua Farms", "logo": "/client-logos/Kalua-Farms-logos-4-8217.png" },
+    { "name": "KBP", "logo": "/client-logos/KBP-Logo-01.png" },
+    { "name": "KRK Advocates", "logo": "/client-logos/KRK-Advocates-Logo.png" },
+    { "name": "PolycomGirls", "logo": "/client-logos/PolycomGirls.png" },
+    { "name": "WomanKind Worldwide", "logo": "/client-logos/WomanKindWorldwide.png" },
+    { "name": "Pill Box", "logo": "/client-logos/Pill-Box.png" },
+    { "name": "Yash Poles", "logo": "/client-logos/Yash-Poles.png" },
+    { "name": "NAL", "logo": "/client-logos/NAL.png" },
+    { "name": "Lots & Mortar", "logo": "/client-logos/Lots-And-Mortar.png" },
+    { "name": "The Last Village Lodge", "logo": "/client-logos/Last-Village-Lodge.png" }
+  ]
+}
+
