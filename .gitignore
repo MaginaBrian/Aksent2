@@ -1,0 +1,18 @@
+node_modules/
+
+# Frontend build output
+aksent/dist/
+dist/
+
+# Uploaded assets (generated at runtime)
+aksent/public/uploads/
+
+# Local env files
+.env
+.env.*
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
