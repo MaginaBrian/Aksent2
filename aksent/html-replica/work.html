@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Selected work by AKSENT — knowledge systems, campaign communication, brand systems, and institutional platforms." />
+  <title>Our Work — AKSENT</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="../public/favicon-32.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── Tokens ─────────────────────────────────────────────── */
+    :root {
+      --ink:           #1a2220;
+      --white:         #ffffff;
+      --lime:          #a7b841;
+      --lime-dark:     #8a9a30;
+      --amethyst:      #B317B4;
+      --amethyst-dark: #8f1290;
+      --muted:         #6b7876;
+      --rule:          #e4e8e7;
+
+      --f-display: 'Libre Baskerville', Georgia, serif;
+      --f-body:    'Source Sans 3', system-ui, sans-serif;
+
+      --pad-x: clamp(1.5rem, 5vw, 4rem);
+      --max:   76rem;
+      --ease:  cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* ─── Reset ──────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: var(--f-body);
+      font-weight: 400;
+      color: var(--ink);
+      background: var(--white);
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+    img { display: block; max-width: 100%; height: auto; }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+    main { flex: 1; }
+
+    .wrap {
+      width: 100%;
+      max-width: var(--max);
+      margin-inline: auto;
+      padding-inline: var(--pad-x);
+    }
+
+    /* ─── Header ─────────────────────────────────────────────── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      background: var(--white);
+      border-bottom: 1px solid var(--rule);
+    }
+    .site-header__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 4rem;
+    }
+    .site-header__logo {
+      font-family: var(--f-display);
+      font-weight: 700;
+      font-size: 1.0625rem;
+      letter-spacing: 0.06em;
+      color: var(--ink);
+      text-transform: uppercase;
+      transition: color 0.2s var(--ease);
+    }
+    .site-header__logo:hover { color: var(--lime-dark); }
+
+    .site-nav__list { display: flex; gap: 2.5rem; align-items: center; }
+    .site-nav__link {
+      font-size: 0.8125rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      transition: color 0.2s var(--ease);
+      position: relative;
+    }
+    .site-nav__link::after {
+      content: '';
+      position: absolute;
+      bottom: -2px; left: 0;
+      width: 0; height: 1px;
+      background: var(--lime);
+      transition: width 0.25s var(--ease);
+    }
+    .site-nav__link:hover,
+    .site-nav__link--active { color: var(--ink); }
+    .site-nav__link:hover::after,
+    .site-nav__link--active::after { width: 100%; }
+
+    .site-header__toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.5rem;
+    }
+    .site-header__toggle span {
+      display: block;
+      width: 22px; height: 1.5px;
+      background: var(--ink);
+      transition: transform 0.25s var(--ease), opacity 0.25s var(--ease);
+    }
+    .site-header__toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .site-header__toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+    .site-header__toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    @media (max-width: 767px) {
+      .site-header__toggle { display: flex; }
+      .site-nav {
+        position: fixed;
+        inset: 4rem 0 0;
+        background: var(--white);
+        padding: 2rem var(--pad-x);
+        transform: translateX(100%);
+        transition: transform 0.3s var(--ease);
+        z-index: 199;
+        border-top: 1px solid var(--rule);
+      }
+      .site-nav--open { transform: translateX(0); }
+      .site-nav__list { flex-direction: column; align-items: flex-start; gap: 0; }
+      .site-nav__link {
+        display: block;
+        padding: 1rem 0;
+        font-size: 1rem;
+        border-bottom: 1px solid var(--rule);
+        width: 100%;
+      }
+      .site-nav__link::after { display: none; }
+    }
+
+    /* ─── Page hero ──────────────────────────────────────────── */
+    .page-hero {
+      padding: 5rem 0 0;
+      border-bottom: 1px solid var(--rule);
+      position: relative;
+      background-image: radial-gradient(circle, rgba(26,34,32,0.10) 1.5px, transparent 1.5px);
+      background-size: 28px 28px;
+      animation: dot-drift 12s linear infinite;
+    }
+    @keyframes dot-drift {
+      from { background-position: 0 0; }
+      to   { background-position: 28px 28px; }
+    }
+    .page-hero__label {
+      display: block;
+      font-size: 0.6875rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1.75rem;
+      animation: fadein 0.6s var(--ease) 0.05s both;
+    }
+    .page-hero__title {
+      font-family: var(--f-display);
+      font-size: clamp(2.75rem, 6vw, 5rem);
+      font-weight: 700;
+      line-height: 1.06;
+      color: var(--ink);
+      white-space: nowrap;
+      margin-bottom: 1.5rem;
+      animation: fadein 0.7s var(--ease) 0.15s both;
+    }
+    .page-hero__title em { font-style: italic; color: var(--lime-dark); }
+    .page-hero__lead {
+      font-size: 1rem;
+      line-height: 1.75;
+      color: var(--muted);
+      font-weight: 300;
+      max-width: 52ch;
+      margin-bottom: 3rem;
+      animation: fadein 0.7s var(--ease) 0.25s both;
+    }
+
+    @keyframes fadein {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ─── Filters ────────────────────────────────────────────── */
+    .filters {
+      display: flex;
+      gap: 0;
+      border-top: 1px solid var(--rule);
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .filters::-webkit-scrollbar { display: none; }
+
+    .filter-btn {
+      flex-shrink: 0;
+      padding: 1rem 1.5rem;
+      font-family: var(--f-body);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      background: none;
+      border: none;
+      border-right: 1px solid var(--rule);
+      cursor: pointer;
+      transition: color 0.2s var(--ease), background 0.2s var(--ease);
+      position: relative;
+      white-space: nowrap;
+    }
+    .filter-btn::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--lime);
+      transform: scaleX(0);
+      transition: transform 0.2s var(--ease);
+    }
+    .filter-btn:hover { color: var(--ink); background: #f7f9f8; }
+    .filter-btn.is-active { color: var(--ink); }
+    .filter-btn.is-active::after { transform: scaleX(1); }
+
+    .filter-count {
+      display: inline-block;
+      margin-left: 0.4rem;
+      font-size: 0.625rem;
+      font-weight: 600;
+      color: var(--lime-dark);
+      vertical-align: middle;
+    }
+
+    /* ─── Work list ──────────────────────────────────────────── */
+    .work-section {
+      border-bottom: 1px solid var(--rule);
+      max-width: var(--max);
+      margin-inline: auto;
+      width: 100%;
+    }
+
+    .work-list { display: flex; flex-direction: column; }
+
+    .work-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-bottom: 1px solid var(--rule);
+      transition: background 0.25s var(--ease);
+      text-decoration: none;
+      color: inherit;
+      overflow: hidden;
+    }
+    .work-row:last-child { border-bottom: none; }
+    .work-row:hover { background: #f7f9f8; }
+
+    /* Alternate: even rows flip image/text */
+    .work-row:nth-child(even) .work-row__media { order: 2; }
+    .work-row:nth-child(even) .work-row__body  { order: 1; border-left: none; border-right: 1px solid var(--rule); }
+
+    .work-row__media {
+      aspect-ratio: 16 / 10;
+      overflow: hidden;
+      background: #eef0ef;
+    }
+    .work-row__media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.7s var(--ease), opacity 0.3s var(--ease);
+    }
+    .work-row:hover .work-row__media img {
+      transform: scale(1.04);
+      opacity: 0.9;
+    }
+
+    .work-row__body {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 2.5rem 3rem;
+      border-left: 1px solid var(--rule);
+    }
+
+    .work-row__top { flex: 1; }
+
+    .work-row__num {
+      display: block;
+      font-size: 0.6875rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      color: var(--lime-dark);
+      margin-bottom: 1.5rem;
+    }
+    .work-row__cat {
+      display: block;
+      font-size: 0.6875rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.75rem;
+    }
+    .work-row__name {
+      font-family: var(--f-display);
+      font-size: clamp(1.25rem, 2.2vw, 1.75rem);
+      font-weight: 700;
+      line-height: 1.2;
+      color: var(--ink);
+      margin-bottom: 1rem;
+      transition: color 0.2s var(--ease);
+    }
+    .work-row:hover .work-row__name { color: var(--lime-dark); }
+    .work-row__desc {
+      font-size: 0.9375rem;
+      color: var(--muted);
+      line-height: 1.7;
+      font-weight: 300;
+      max-width: 36ch;
+    }
+    .work-row__cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 2rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink);
+      border-bottom: 1px solid var(--rule);
+      padding-bottom: 2px;
+      transition: color 0.2s var(--ease), border-color 0.2s var(--ease), gap 0.2s var(--ease);
+      width: fit-content;
+    }
+    .work-row:hover .work-row__cta {
+      color: var(--lime-dark);
+      border-color: var(--lime-dark);
+      gap: 0.75rem;
+    }
+
+    /* Hidden state for filtered rows */
+    .work-row[hidden] { display: none; }
+
+    @media (max-width: 767px) {
+      .work-row { grid-template-columns: 1fr; }
+      .work-row:nth-child(even) .work-row__media { order: 0; }
+      .work-row:nth-child(even) .work-row__body  { order: 0; border-right: none; }
+      .work-row__body { border-left: none !important; padding: 1.75rem 0; }
+      .work-row__media { aspect-ratio: 3 / 2; }
+      .work-section { padding-inline: var(--pad-x); }
+    }
+
+    /* ─── CTA ────────────────────────────────────────────────── */
+    .cta { padding: 7rem 0; border-bottom: 1px solid var(--rule); }
+    .cta__inner {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: end;
+      gap: 3rem;
+    }
+    @media (max-width: 640px) { .cta__inner { grid-template-columns: 1fr; } }
+    .cta__heading {
+      font-family: var(--f-display);
+      font-size: clamp(2rem, 5vw, 3.75rem);
+      font-weight: 700;
+      line-height: 1.1;
+      color: var(--ink);
+    }
+    .cta__heading em { font-style: italic; color: var(--lime-dark); }
+    .cta__sub {
+      font-size: 0.9375rem;
+      color: var(--muted);
+      font-weight: 300;
+      margin-top: 1.25rem;
+      max-width: 46ch;
+      line-height: 1.7;
+    }
+    .btn-primary {
+      display: inline-block;
+      padding: 0.75rem 1.75rem;
+      background: var(--amethyst);
+      color: var(--white);
+      font-family: var(--f-body);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: background 0.2s var(--ease);
+      white-space: nowrap;
+    }
+    .btn-primary:hover { background: var(--amethyst-dark); }
+
+    /* ─── Footer ─────────────────────────────────────────────── */
+    .site-footer {
+      background: var(--ink);
+      color: rgba(255,255,255,0.55);
+      padding: 3.5rem 0 2.5rem;
+    }
+    .site-footer__top {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      padding-bottom: 2.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      margin-bottom: 1.75rem;
+    }
+    @media (max-width: 640px) { .site-footer__top { grid-template-columns: 1fr; gap: 2rem; } }
+    .site-footer__brand {
+      font-family: var(--f-display);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--lime);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+    .site-footer__tagline { font-size: 0.8125rem; line-height: 1.6; font-weight: 300; max-width: 32ch; }
+    .site-footer__contact {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      font-size: 0.8125rem;
+      line-height: 1.8;
+      text-align: right;
+    }
+    @media (max-width: 640px) { .site-footer__contact { text-align: left; } }
+    .site-footer__contact a { color: rgba(255,255,255,0.55); transition: color 0.2s; }
+    .site-footer__contact a:hover { color: var(--lime); }
+    .site-footer__bottom { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+    .site-footer__copy { font-size: 0.75rem; letter-spacing: 0.04em; }
+    .site-footer__nav { display: flex; gap: 2rem; }
+    .site-footer__nav a {
+      font-size: 0.75rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-weight: 500;
+      color: rgba(255,255,255,0.35);
+      transition: color 0.2s;
+    }
+    .site-footer__nav a:hover { color: var(--white); }
+    /* ─── Lightbox ───────────────────────────────────────────── */
+    .lb {
+      position: fixed;
+      inset: 0;
+      z-index: 900;
+      background: rgba(26,34,32,0.97);
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s var(--ease), visibility 0.3s var(--ease);
+    }
+    .lb.is-open { opacity: 1; visibility: visible; }
+
+    /* Top bar */
+    .lb__bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.5rem var(--pad-x);
+      flex-shrink: 0;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .lb__meta { display: flex; flex-direction: column; gap: 0.2rem; }
+    .lb__cat {
+      font-size: 0.6875rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--lime);
+    }
+    .lb__title {
+      font-family: var(--f-display);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--white);
+    }
+    .lb__close {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: rgba(255,255,255,0.5);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: color 0.2s var(--ease);
+      padding: 0.5rem;
+    }
+    .lb__close:hover { color: var(--white); }
+    .lb__close-icon { font-size: 1.25rem; line-height: 1; font-weight: 300; }
+
+    /* Stage */
+    .lb__stage {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      padding: 2rem;
+    }
+    .lb__img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      display: block;
+      opacity: 0;
+      transform: scale(0.97);
+      transition: opacity 0.25s var(--ease), transform 0.25s var(--ease);
+    }
+    .lb__img.is-visible { opacity: 1; transform: scale(1); }
+
+    /* Prev / Next arrows */
+    .lb__arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: var(--white);
+      width: 3rem;
+      height: 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1.125rem;
+      transition: background 0.2s var(--ease), border-color 0.2s var(--ease);
+      z-index: 10;
+    }
+    .lb__arrow:hover { background: rgba(255,255,255,0.14); border-color: rgba(255,255,255,0.3); }
+    .lb__arrow--prev { left: 1.5rem; }
+    .lb__arrow--next { right: 1.5rem; }
+    .lb__arrow[disabled] { opacity: 0.2; pointer-events: none; }
+
+    /* Bottom bar */
+    .lb__foot {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.25rem var(--pad-x);
+      border-top: 1px solid rgba(255,255,255,0.08);
+      gap: 1.5rem;
+      flex-shrink: 0;
+    }
+    .lb__counter {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.4);
+    }
+    .lb__dots { display: flex; gap: 0.5rem; align-items: center; }
+    .lb__dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      transition: background 0.2s var(--ease), transform 0.2s var(--ease);
+    }
+    .lb__dot.is-active { background: var(--lime); transform: scale(1.4); }
+
+    @media (max-width: 600px) {
+      .lb__arrow { width: 2.25rem; height: 2.25rem; font-size: 0.875rem; }
+      .lb__arrow--prev { left: 0.75rem; }
+      .lb__arrow--next { right: 0.75rem; }
+      .lb__stage { padding: 1rem 3.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Header ──────────────────────────────────────────────── -->
+  <header class="site-header">
+    <div class="wrap site-header__inner">
+      <a href="index.html" class="site-header__logo">Aksent</a>
+      <button class="site-header__toggle" type="button"
+              aria-label="Toggle menu" aria-expanded="false"
+              aria-controls="site-nav">
+        <span></span><span></span><span></span>
+      </button>
+      <nav id="site-nav" class="site-nav" role="navigation">
+        <ul class="site-nav__list">
+          <li><a href="index.html"   class="site-nav__link">Home</a></li>
+          <li><a href="work.html"    class="site-nav__link site-nav__link--active">Our Work</a></li>
+          <li><a href="about.html"   class="site-nav__link">About</a></li>
+          <li><a href="contact.html" class="site-nav__link">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ── Page hero ───────────────────────────────────────────── -->
+    <section class="page-hero">
+      <div class="wrap">
+        <span class="page-hero__label">Selected projects</span>
+        <h1 class="page-hero__title">Our <em>work.</em></h1>
+        <p class="page-hero__lead">We structure complex work into communication systems that move across audiences, institutions, and public space.</p>
+      </div>
+
+      <!-- Filters sit flush at the bottom of the hero, full-width -->
+      <div class="wrap" style="padding-inline:0">
+        <div class="filters" role="tablist" aria-label="Filter projects by capability">
+          <button class="filter-btn is-active" data-filter="all" role="tab" aria-selected="true">
+            All <span class="filter-count" data-count="all"></span>
+          </button>
+          <button class="filter-btn" data-filter="brand" role="tab" aria-selected="false">
+            Brand Systems <span class="filter-count" data-count="brand"></span>
+          </button>
+          <button class="filter-btn" data-filter="campaign" role="tab" aria-selected="false">
+            Campaign Communication <span class="filter-count" data-count="campaign"></span>
+          </button>
+          <button class="filter-btn" data-filter="publications" role="tab" aria-selected="false">
+            Knowledge Publications <span class="filter-count" data-count="publications"></span>
+          </button>
+          <button class="filter-btn" data-filter="institutional" role="tab" aria-selected="false">
+            Institutional Platforms <span class="filter-count" data-count="institutional"></span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Work list ────────────────────────────────────────────── -->
+    <section class="work-section">
+      <div class="work-list" id="work-list">
+
+        <a id="amcham" href="#amcham" class="work-row" data-cap="campaign">
+          <div class="work-row__media">
+            <img src="../public/projects/amcham/01.png" alt="American Chamber of Commerce Kenya – campaign communication" />
+          </div>
+          <div class="work-row__body">
+            <div class="work-row__top">
+              <span class="work-row__num">01</span>
+              <span class="work-row__cat">Campaign Communication</span>
+              <h2 class="work-row__name">American Chamber of Commerce Kenya</h2>
+              <p class="work-row__desc">Business summit brand development for AMCHAM Kenya.</p>
+            </div>
+            <span class="work-row__cta">View project →</span>
+          </div>
+        </a>
+
+        <a id="hivos" href="#hivos" class="work-row" data-cap="campaign">
+          <div class="work-row__media">
+            <img src="../public/projects/hivos/01.png" alt="Hivos – knowledge publication and campaign design" />
+          </div>
+          <div class="work-row__body">
+            <div class="work-row__top">
+              <span class="work-row__num">02</span>
+              <span class="work-row__cat">Campaign Communication</span>
+              <h2 class="work-row__name">Hivos</h2>
+              <p class="work-row__desc">Knowledge publication and campaign design for Hivos.</p>
+            </div>
+            <span class="work-row__cta">View project →</span>
+          </div>
+        </a>
+
+        <a id="womankind" href="#womankind" class="work-row" data-cap="publications">
+          <div class="work-row__media">
+            <img src="../public/projects/womankind-worldwide/01.png" alt="WomanKind Worldwide – knowledge publication" />
+          </div>
+          <div class="work-row__body">
+            <div class="work-row__top">
+              <span class="work-row__num">03</span>
+              <span class="work-row__cat">Knowledge Publication</span>
+              <h2 class="work-row__name">WomanKind Worldwide</h2>
+              <p class="work-row__desc">Knowledge publication and policy brief design for WomanKind Worldwide.</p>
+            </div>
+            <span class="work-row__cta">View project →</span>
+          </div>
+        </a>
+
+        <a id="biodigester" href="#biodigester" class="work-row" data-cap="campaign">
+          <div class="work-row__media">
+            <img src="../public/projects/african-biodester/1.jpg" alt="African Biodigester Component-Kenya – campaign communication" />
+          </div>
+          <div class="work-row__body">
+            <div class="work-row__top">
+              <span class="work-row__num">04</span>
+              <span class="work-row__cat">Campaign Communication</span>
+              <h2 class="work-row__name">African Biodigester Component-Kenya</h2>
+              <p class="work-row__desc">Campaign communication and visual identity for biodigester adoption programmes.</p>
+            </div>
+            <span class="work-row__cta">View project →</span>
+          </div>
+        </a>
+
+        <a id="acre" href="#acre" class="work-row" data-cap="publications">
+          <div class="work-row__media">
+            <img src="../public/projects/acre-africa/09.jpg" alt="ACRE Africa – knowledge publication" />
+          </div>
+          <div class="work-row__body">
+            <div class="work-row__top">
+              <span class="work-row__num">05</span>
+              <span class="work-row__cat">Knowledge Publication</span>
+              <h2 class="work-row__name">ACRE Africa</h2>
+              <p class="work-row__desc">Profile and publication design for ACRE Africa.</p>
+            </div>
+            <span class="work-row__cta">View project →</span>
+          </div>
+        </a>
+
+        <a id="bima-salama" href="#bima-salama" class="work-row" data-cap="campaign">
+          <div class="work-row__media">
+            <img src="../public/projects/bima-salama/01.jpg" alt="Bima Salama – campaign communication" />
+          </div>
+          <div class="work-row__body">
+            <div class="work-row__top">
+              <span class="work-row__num">06</span>
+              <span class="work-row__cat">Campaign Communication</span>
+              <h2 class="work-row__name">Bima Salama</h2>
+              <p class="work-row__desc">Insurance and brand communication.</p>
+            </div>
+            <span class="work-row__cta">View project →</span>
+          </div>
+        </a>
+
+        <a id="krk" href="#krk" class="work-row" data-cap="brand">
+          <div class="work-row__media">
+            <img src="../public/projects/krk-advocates/01.png" alt="KRK Advocates – brand system" />
+          </div>
+          <div class="work-row__body">
+            <div class="work-row__top">
+              <span class="work-row__num">07</span>
+              <span class="work-row__cat">Brand System</span>
+              <h2 class="work-row__name">KRK Advocates</h2>
+              <p class="work-row__desc">Legal and brand communication for KRK Advocates.</p>
+            </div>
+            <span class="work-row__cta">View project →</span>
+          </div>
+        </a>
+
+        <a id="redss" href="#redss" class="work-row" data-cap="publications">
+          <div class="work-row__media">
+            <img src="../public/projects/redss/01.png" alt="ReDSS – knowledge publication" />
+          </div>
+          <div class="work-row__body">
+            <div class="work-row__top">
+              <span class="work-row__num">08</span>
+              <span class="work-row__cat">Knowledge Publication</span>
+              <h2 class="work-row__name">ReDSS</h2>
+              <p class="work-row__desc">Research and dissemination support for ReDSS.</p>
+            </div>
+            <span class="work-row__cta">View project →</span>
+          </div>
+        </a>
+
+        <a id="icpac" href="#icpac" class="work-row" data-cap="institutional">
+          <div class="work-row__media">
+            <img src="../public/projects/icpac/01.png" alt="ICPAC – institutional platform" />
+          </div>
+          <div class="work-row__body">
+            <div class="work-row__top">
+              <span class="work-row__num">09</span>
+              <span class="work-row__cat">Institutional Platform</span>
+              <h2 class="work-row__name">ICPAC</h2>
+              <p class="work-row__desc">Knowledge and communication design for ICPAC.</p>
+            </div>
+            <span class="work-row__cta">View project →</span>
+          </div>
+        </a>
+
+        <a id="movenpick" href="#movenpick" class="work-row" data-cap="brand">
+          <div class="work-row__media">
+            <img src="../public/projects/movenpick/01.png" alt="Mövenpick – brand system" />
+          </div>
+          <div class="work-row__body">
+            <div class="work-row__top">
+              <span class="work-row__num">10</span>
+              <span class="work-row__cat">Brand System</span>
+              <h2 class="work-row__name">Mövenpick</h2>
+              <p class="work-row__desc">Brand and experience design for Mövenpick.</p>
+            </div>
+            <span class="work-row__cta">View project →</span>
+          </div>
+        </a>
+
+        <a id="sankara" href="#sankara" class="work-row" data-cap="brand">
+          <div class="work-row__media">
+            <img src="../public/projects/sankara/01.png" alt="Sankara – brand system" />
+          </div>
+          <div class="work-row__body">
+            <div class="work-row__top">
+              <span class="work-row__num">11</span>
+              <span class="work-row__cat">Brand System</span>
+              <h2 class="work-row__name">Sankara</h2>
+              <p class="work-row__desc">Brand and communication design for Sankara.</p>
+            </div>
+            <span class="work-row__cta">View project →</span>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- ── CTA ──────────────────────────────────────────────────── -->
+    <section class="cta">
+      <div class="wrap">
+        <div class="cta__inner">
+          <div>
+            <h2 class="cta__heading">
+              Ready to work<br /><em>together?</em>
+            </h2>
+            <p class="cta__sub">
+              We translate complex work into communication people understand.
+              Clarity is not a finish — it is a foundation.
+            </p>
+          </div>
+          <a href="contact.html" class="btn-primary">Start a conversation</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ── Footer ──────────────────────────────────────────────── -->
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="site-footer__top">
+        <div>
+          <p class="site-footer__brand">Aksent</p>
+          <p class="site-footer__tagline">Knowledge Systems · Strategic Communication · Design Intelligence</p>
+        </div>
+        <div class="site-footer__contact">
+          <a href="tel:+254722311089">+254 722 311 089</a>
+          <a href="mailto:hello@aksent.co.ke">hello@aksent.co.ke</a>
+          <span>Jabavu Road, Kilimani · Nairobi, Kenya</span>
+          <a href="https://www.aksent.co.ke" target="_blank" rel="noopener noreferrer">www.aksent.co.ke</a>
+        </div>
+      </div>
+      <div class="site-footer__bottom">
+        <p class="site-footer__copy">© AKSENT. All rights reserved.</p>
+        <nav class="site-footer__nav">
+          <a href="work.html">Work</a>
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ── Lightbox ────────────────────────────────────────────── -->
+  <div class="lb" id="lightbox" role="dialog" aria-modal="true" aria-label="Project gallery" aria-hidden="true">
+    <div class="lb__bar">
+      <div class="lb__meta">
+        <span class="lb__cat" id="lb-cat"></span>
+        <span class="lb__title" id="lb-title"></span>
+      </div>
+      <button class="lb__close" id="lb-close" aria-label="Close gallery">
+        <span class="lb__close-icon">×</span> Close
+      </button>
+    </div>
+    <div class="lb__stage">
+      <button class="lb__arrow lb__arrow--prev" id="lb-prev" aria-label="Previous image">&#8592;</button>
+      <img class="lb__img" id="lb-img" src="" alt="" />
+      <button class="lb__arrow lb__arrow--next" id="lb-next" aria-label="Next image">&#8594;</button>
+    </div>
+    <div class="lb__foot">
+      <span class="lb__counter" id="lb-counter"></span>
+      <div class="lb__dots" id="lb-dots"></div>
+    </div>
+  </div>
+
+  <script>
+    /* ── Mobile nav ─────────────────────────────────────────── */
+    const toggle = document.querySelector('.site-header__toggle');
+    const nav    = document.getElementById('site-nav');
+    const links  = nav?.querySelectorAll('a');
+
+    function syncTabindex(open) {
+      const mobile = window.innerWidth < 768;
+      links?.forEach(l => l.setAttribute('tabindex', (!mobile || open) ? '0' : '-1'));
+    }
+    syncTabindex(false);
+    toggle?.addEventListener('click', () => {
+      const open = nav.classList.toggle('site-nav--open');
+      toggle.setAttribute('aria-expanded', String(open));
+      syncTabindex(open);
+    });
+    window.addEventListener('resize', () => {
+      syncTabindex(nav.classList.contains('site-nav--open'));
+    });
+
+    /* ── Filter + numbering ─────────────────────────────────── */
+    const rows    = document.querySelectorAll('.work-row');
+    const btns    = document.querySelectorAll('.filter-btn');
+    const counts  = document.querySelectorAll('.filter-count');
+
+    const tally = { all: rows.length };
+    rows.forEach(r => {
+      const cap = r.dataset.cap;
+      tally[cap] = (tally[cap] || 0) + 1;
+    });
+    counts.forEach(c => {
+      const key = c.dataset.count;
+      c.textContent = tally[key] ?? 0;
+    });
+
+    function applyFilter(filter) {
+      let visible = 0;
+      rows.forEach(r => {
+        const show = filter === 'all' || r.dataset.cap === filter;
+        r.hidden = !show;
+        if (show) {
+          visible++;
+          r.querySelector('.work-row__num').textContent = String(visible).padStart(2, '0');
+        }
+      });
+      document.querySelectorAll('.work-row:not([hidden])').forEach((r, i) => {
+        const media = r.querySelector('.work-row__media');
+        const body  = r.querySelector('.work-row__body');
+        if (i % 2 === 1) {
+          media.style.order = '2'; body.style.order = '1';
+          body.style.borderLeft = 'none'; body.style.borderRight = '1px solid var(--rule)';
+        } else {
+          media.style.order = ''; body.style.order = '';
+          body.style.borderLeft = ''; body.style.borderRight = '';
+        }
+      });
+    }
+
+    btns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        btns.forEach(b => { b.classList.remove('is-active'); b.setAttribute('aria-selected', 'false'); });
+        btn.classList.add('is-active');
+        btn.setAttribute('aria-selected', 'true');
+        applyFilter(btn.dataset.filter);
+      });
+    });
+    applyFilter('all');
+
+    /* ── Lightbox ───────────────────────────────────────────── */
+
+    // Project image data — add/remove images per project as needed
+    const projects = {
+      'amcham':      { cat: 'Campaign Communication', title: 'American Chamber of Commerce Kenya', images: ['../public/projects/amcham/01.png', '../public/projects/amcham/02.png', '../public/projects/amcham/03.png'] },
+      'hivos':       { cat: 'Campaign Communication', title: 'Hivos', images: ['../public/projects/hivos/01.png', '../public/projects/hivos/02.png', '../public/projects/hivos/03.png'] },
+      'womankind':   { cat: 'Knowledge Publication',  title: 'WomanKind Worldwide', images: ['../public/projects/womankind-worldwide/01.png', '../public/projects/womankind-worldwide/02.png'] },
+      'biodigester': { cat: 'Campaign Communication', title: 'African Biodigester Component-Kenya', images: ['../public/projects/african-biodester/1.jpg', '../public/projects/african-biodester/2.jpg'] },
+      'acre':        { cat: 'Knowledge Publication',  title: 'ACRE Africa', images: ['../public/projects/acre-africa/09.jpg', '../public/projects/acre-africa/10.jpg'] },
+      'bima-salama': { cat: 'Campaign Communication', title: 'Bima Salama', images: ['../public/projects/bima-salama/01.jpg', '../public/projects/bima-salama/02.jpg'] },
+      'krk':         { cat: 'Brand System',           title: 'KRK Advocates', images: ['../public/projects/krk-advocates/01.png', '../public/projects/krk-advocates/02.png', '../public/projects/krk-advocates/03.png'] },
+      'redss':       { cat: 'Knowledge Publication',  title: 'ReDSS', images: ['../public/projects/redss/01.png', '../public/projects/redss/02.png'] },
+      'icpac':       { cat: 'Institutional Platform', title: 'ICPAC', images: ['../public/projects/icpac/01.png', '../public/projects/icpac/02.png', '../public/projects/icpac/03.png'] },
+      'movenpick':   { cat: 'Brand System',           title: 'Mövenpick', images: ['../public/projects/movenpick/01.png', '../public/projects/movenpick/02.png'] },
+      'sankara':     { cat: 'Brand System',           title: 'Sankara', images: ['../public/projects/sankara/01.png', '../public/projects/sankara/02.png'] },
+    };
+
+    const lb        = document.getElementById('lightbox');
+    const lbImg     = document.getElementById('lb-img');
+    const lbCat     = document.getElementById('lb-cat');
+    const lbTitle   = document.getElementById('lb-title');
+    const lbCounter = document.getElementById('lb-counter');
+    const lbDots    = document.getElementById('lb-dots');
+    const lbPrev    = document.getElementById('lb-prev');
+    const lbNext    = document.getElementById('lb-next');
+    const lbClose   = document.getElementById('lb-close');
+
+    let currentProject = null;
+    let currentIndex   = 0;
+    let triggerEl      = null;
+
+    // Build dot indicators
+    function buildDots(count) {
+      lbDots.innerHTML = '';
+      for (let i = 0; i < count; i++) {
+        const d = document.createElement('button');
+        d.className = 'lb__dot';
+        d.setAttribute('aria-label', `Go to image ${i + 1}`);
+        d.addEventListener('click', () => goTo(i));
+        lbDots.appendChild(d);
+      }
+    }
+
+    function updateDots(index) {
+      lbDots.querySelectorAll('.lb__dot').forEach((d, i) => {
+        d.classList.toggle('is-active', i === index);
+      });
+    }
+
+    function goTo(index) {
+      const images = currentProject.images;
+      currentIndex = Math.max(0, Math.min(index, images.length - 1));
+
+      // Fade out, swap, fade in
+      lbImg.classList.remove('is-visible');
+      setTimeout(() => {
+        lbImg.src = images[currentIndex];
+        lbImg.alt = `${currentProject.title} — image ${currentIndex + 1}`;
+        lbImg.onload = () => lbImg.classList.add('is-visible');
+        // Fallback if already cached
+        if (lbImg.complete) lbImg.classList.add('is-visible');
+      }, 200);
+
+      lbCounter.textContent = `${currentIndex + 1} / ${images.length}`;
+      updateDots(currentIndex);
+      lbPrev.disabled = currentIndex === 0;
+      lbNext.disabled = currentIndex === images.length - 1;
+    }
+
+    function openLightbox(projectId, el) {
+      const project = projects[projectId];
+      if (!project) return;
+
+      triggerEl      = el;
+      currentProject = project;
+      currentIndex   = 0;
+
+      lbCat.textContent   = project.cat;
+      lbTitle.textContent = project.title;
+      buildDots(project.images.length);
+      goTo(0);
+
+      lb.classList.add('is-open');
+      lb.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      lbClose.focus();
+    }
+
+    function closeLightbox() {
+      lb.classList.remove('is-open');
+      lb.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      lbImg.classList.remove('is-visible');
+      if (triggerEl) triggerEl.focus();
+    }
+
+    // Click on a work row
+    rows.forEach(row => {
+      row.addEventListener('click', e => {
+        e.preventDefault();
+        const id = row.id;
+        if (id && projects[id]) openLightbox(id, row);
+      });
+    });
+
+    // Controls
+    lbClose.addEventListener('click', closeLightbox);
+    lbPrev.addEventListener('click', () => goTo(currentIndex - 1));
+    lbNext.addEventListener('click', () => goTo(currentIndex + 1));
+
+    // Keyboard
+    document.addEventListener('keydown', e => {
+      if (!lb.classList.contains('is-open')) return;
+      if (e.key === 'Escape')     closeLightbox();
+      if (e.key === 'ArrowLeft')  goTo(currentIndex - 1);
+      if (e.key === 'ArrowRight') goTo(currentIndex + 1);
+    });
+
+    // Click backdrop to close
+    lb.addEventListener('click', e => {
+      if (e.target === lb) closeLightbox();
+    });
+
+    // Touch swipe
+    let touchStartX = 0;
+    lb.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].clientX; }, { passive: true });
+    lb.addEventListener('touchend', e => {
+      const dx = e.changedTouches[0].clientX - touchStartX;
+      if (Math.abs(dx) > 50) dx < 0 ? goTo(currentIndex + 1) : goTo(currentIndex - 1);
+    });
+
+    // Focus trap inside lightbox
+    lb.addEventListener('keydown', e => {
+      if (e.key !== 'Tab') return;
+      const focusable = [...lb.querySelectorAll('button:not([disabled])')];
+      const first = focusable[0];
+      const last  = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    });
+  </script>
+</body>
+</html>

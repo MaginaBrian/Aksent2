@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="AKSENT translates complex knowledge into communication people understand. Knowledge systems, strategic communication, and design intelligence." />
+  <title>AKSENT — Knowledge Systems, Strategic Communication, Design Intelligence</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="../public/favicon-32.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── Tokens ────────────────────────────────────────────── */
+    :root {
+      --ink:       #1a2220;
+      --white:     #ffffff;
+      --lime:      #a7b841;
+      --lime-dark: #8a9a30;
+      --amethyst:  #B317B4;
+      --amethyst-dark: #8f1290;
+      --muted:     #6b7876;
+      --rule:      #e4e8e7;
+
+      --f-display: 'Libre Baskerville', Georgia, serif;
+      --f-body:    'Source Sans 3', system-ui, sans-serif;
+
+      --pad-x: clamp(1.5rem, 5vw, 4rem);
+      --max:   76rem;
+
+      --ease: cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* ─── Reset ─────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: var(--f-body);
+      font-weight: 400;
+      color: var(--ink);
+      background: var(--white);
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+    img { display: block; max-width: 100%; height: auto; }
+    a { text-decoration: none; color: inherit; }
+    ul, ol { list-style: none; }
+    main { flex: 1; }
+
+    /* ─── Layout ─────────────────────────────────────────────── */
+    .wrap {
+      width: 100%;
+      max-width: var(--max);
+      margin-inline: auto;
+      padding-inline: var(--pad-x);
+    }
+
+    /* ─── Header ─────────────────────────────────────────────── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      background: var(--white);
+      border-bottom: 1px solid var(--rule);
+    }
+    .site-header__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 4rem;
+    }
+    .site-header__logo {
+      font-family: var(--f-display);
+      font-weight: 700;
+      font-size: 1.0625rem;
+      letter-spacing: 0.06em;
+      color: var(--ink);
+      text-transform: uppercase;
+      transition: color 0.2s var(--ease);
+    }
+    .site-header__logo:hover { color: var(--lime-dark); }
+
+    .site-nav__list {
+      display: flex;
+      gap: 2.5rem;
+      align-items: center;
+    }
+    .site-nav__link {
+      font-size: 0.8125rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      transition: color 0.2s var(--ease);
+      position: relative;
+    }
+    .site-nav__link::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--lime);
+      transition: width 0.25s var(--ease);
+    }
+    .site-nav__link:hover,
+    .site-nav__link--active { color: var(--ink); }
+    .site-nav__link:hover::after,
+    .site-nav__link--active::after { width: 100%; }
+
+    /* Mobile toggle */
+    .site-header__toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.5rem;
+    }
+    .site-header__toggle span {
+      display: block;
+      width: 22px;
+      height: 1.5px;
+      background: var(--ink);
+      transition: transform 0.25s var(--ease), opacity 0.25s var(--ease);
+    }
+    .site-header__toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .site-header__toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+    .site-header__toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    @media (max-width: 767px) {
+      .site-header__toggle { display: flex; }
+      .site-nav {
+        position: fixed;
+        inset: 4rem 0 0;
+        background: var(--white);
+        padding: 2rem var(--pad-x);
+        transform: translateX(100%);
+        transition: transform 0.3s var(--ease);
+        z-index: 199;
+        border-top: 1px solid var(--rule);
+      }
+      .site-nav--open { transform: translateX(0); }
+      .site-nav__list { flex-direction: column; align-items: flex-start; gap: 0; }
+      .site-nav__link {
+        display: block;
+        padding: 1rem 0;
+        font-size: 1rem;
+        border-bottom: 1px solid var(--rule);
+        width: 100%;
+      }
+      .site-nav__link::after { display: none; }
+    }
+
+    /* ─── Hero ───────────────────────────────────────────────── */
+    .hero {
+      min-height: calc(100vh - 4rem);
+      display: flex;
+      flex-direction: column;
+      border-bottom: 1px solid var(--rule);
+      position: relative;
+      background: #f2f4f3;
+    }
+    .hero__canvas {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero__slides {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+    .hero__slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 1s var(--ease);
+    }
+    .hero__slide.is-active { opacity: 1; }
+    .hero__slide--1 {
+      background: url('public/2147916707.jpg') center/cover no-repeat;
+    }
+    .hero__slide--2 {
+      background: url('public/2148166085.jpg') center/cover no-repeat;
+    }
+    .hero__slide--3 {
+      background: url('public/2148852587.jpg') center/cover no-repeat;
+    }
+    .hero__slide::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(255,255,255,0.55);
+    }
+    .hero .wrap {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      position: relative;
+      z-index: 1;
+      padding-top: 2.5rem;
+      padding-bottom: 5rem;
+    }
+    .hero__nav {
+      position: absolute;
+      bottom: 2rem;
+      right: var(--pad-x);
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+    }
+    .hero__nav-dots { display: flex; gap: 0.5rem; }
+    .hero__dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--rule);
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      transition: background 0.25s var(--ease), transform 0.25s var(--ease);
+    }
+    .hero__dot.is-active { background: var(--ink); transform: scale(1.3); }
+    .hero__progress {
+      width: 3rem;
+      height: 1px;
+      background: var(--rule);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero__progress-fill {
+      position: absolute;
+      top: 0; left: 0;
+      height: 100%;
+      background: var(--lime-dark);
+      width: 0%;
+      transition: width 4.8s linear;
+    }
+    .hero__index {
+      position: absolute;
+      top: 2.5rem;
+      right: var(--pad-x);
+      font-size: 0.6875rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-family: var(--f-body);
+      font-weight: 500;
+    }
+    .hero__title {
+      font-family: var(--f-display);
+      font-size: clamp(3rem, 8.5vw, 6.5rem);
+      line-height: 1.04;
+      font-weight: 700;
+      color: var(--ink);
+      max-width: 16ch;
+      margin-bottom: 3rem;
+    }
+    .hero__title em {
+      font-style: italic;
+      color: var(--lime-dark);
+    }
+    .hero__footer {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    .hero__lead {
+      font-size: clamp(0.9375rem, 1.5vw, 1.0625rem);
+      line-height: 1.7;
+      color: var(--muted);
+      max-width: 42ch;
+      font-weight: 300;
+    }
+    .hero__actions {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      flex-shrink: 0;
+    }
+    .btn-primary {
+      display: inline-block;
+      padding: 0.75rem 1.75rem;
+      background: var(--amethyst);
+      color: var(--white);
+      font-family: var(--f-body);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: background 0.2s var(--ease);
+    }
+    .btn-primary:hover { background: var(--amethyst-dark); }
+    .btn-ghost {
+      font-size: 0.8125rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      color: var(--muted);
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--rule);
+      padding-bottom: 1px;
+      transition: color 0.2s var(--ease), border-color 0.2s var(--ease);
+    }
+    .btn-ghost:hover { color: var(--ink); border-color: var(--ink); }
+
+    /* ─── Section label ──────────────────────────────────────── */
+    .section-label {
+      display: block;
+      font-size: 0.6875rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 3rem;
+    }
+
+    /* ─── Work ───────────────────────────────────────────────── */
+    .work { padding: 6rem 0; border-bottom: 1px solid var(--rule); }
+    .work__header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 0;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--rule);
+    }
+    .work__all {
+      font-size: 0.8125rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      color: var(--muted);
+      border-bottom: 1px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .work__all:hover { color: var(--ink); border-color: var(--ink); }
+
+    /* Each project is a full-width row */
+    .work-list { display: flex; flex-direction: column; }
+
+    .work-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-bottom: 1px solid var(--rule);
+      transition: background 0.25s var(--ease);
+      text-decoration: none;
+      color: inherit;
+    }
+    .work-row:hover { background: #f7f9f8; }
+
+    /* Odd rows: image left, text right */
+    /* Even rows: text left, image right */
+    .work-row:nth-child(even) .work-row__media { order: 2; }
+    .work-row:nth-child(even) .work-row__body  { order: 1; }
+
+    .work-row__media {
+      aspect-ratio: 16 / 10;
+      overflow: hidden;
+      background: #eef0ef;
+    }
+    .work-row__media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.7s var(--ease), opacity 0.3s var(--ease);
+    }
+    .work-row:hover .work-row__media img {
+      transform: scale(1.04);
+      opacity: 0.9;
+    }
+
+    .work-row__body {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 2.5rem 3rem;
+      border-left: 1px solid var(--rule);
+    }
+    .work-row:nth-child(even) .work-row__body {
+      border-left: none;
+      border-right: 1px solid var(--rule);
+    }
+
+    .work-row__top { flex: 1; }
+
+    .work-row__num {
+      display: block;
+      font-size: 0.6875rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      color: var(--lime-dark);
+      margin-bottom: 1.5rem;
+      font-family: var(--f-body);
+    }
+    .work-row__cat {
+      display: block;
+      font-size: 0.6875rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.75rem;
+    }
+    .work-row__name {
+      font-family: var(--f-display);
+      font-size: clamp(1.25rem, 2.2vw, 1.75rem);
+      font-weight: 700;
+      line-height: 1.2;
+      color: var(--ink);
+      margin-bottom: 1rem;
+      transition: color 0.2s var(--ease);
+    }
+    .work-row:hover .work-row__name { color: var(--lime-dark); }
+    .work-row__desc {
+      font-size: 0.9375rem;
+      color: var(--muted);
+      line-height: 1.7;
+      font-weight: 300;
+      max-width: 36ch;
+    }
+    .work-row__cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 2rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink);
+      border-bottom: 1px solid var(--rule);
+      padding-bottom: 2px;
+      transition: color 0.2s var(--ease), border-color 0.2s var(--ease), gap 0.2s var(--ease);
+      width: fit-content;
+    }
+    .work-row:hover .work-row__cta {
+      color: var(--lime-dark);
+      border-color: var(--lime-dark);
+      gap: 0.75rem;
+    }
+
+    @media (max-width: 767px) {
+      .work-row { grid-template-columns: 1fr; }
+      .work-row:nth-child(even) .work-row__media { order: 0; }
+      .work-row:nth-child(even) .work-row__body  { order: 0; }
+      .work-row__body { border-left: none !important; border-right: none !important; padding: 1.75rem 0; }
+      .work-row__media { aspect-ratio: 3 / 2; }
+    }
+
+    /* ─── Services ───────────────────────────────────────────── */
+    .services {
+      padding: 6rem 0;
+      background: var(--ink);
+      color: var(--white);
+      border-bottom: 1px solid var(--rule);
+    }
+    .services .section-label { color: rgba(255,255,255,0.35); }
+    .services__layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+    @media (max-width: 767px) {
+      .services__layout { grid-template-columns: 1fr; gap: 2.5rem; }
+    }
+    .services__headline {
+      font-family: var(--f-display);
+      font-size: clamp(1.625rem, 3vw, 2.25rem);
+      font-weight: 700;
+      line-height: 1.25;
+      color: var(--white);
+    }
+    .services__headline em {
+      font-style: italic;
+      color: var(--lime);
+    }
+    .services__list { border-top: 1px solid rgba(255,255,255,0.1); }
+    .services__item {
+      display: flex;
+      align-items: baseline;
+      gap: 1.25rem;
+      padding: 1.25rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      transition: padding-left 0.2s var(--ease);
+    }
+    .services__item:hover { padding-left: 0.5rem; }
+    .services__num {
+      font-size: 0.6875rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      color: var(--lime);
+      flex-shrink: 0;
+      padding-top: 0.15rem;
+    }
+    .services__name {
+      font-size: clamp(0.9375rem, 1.5vw, 1.0625rem);
+      font-weight: 300;
+      color: rgba(255,255,255,0.9);
+      letter-spacing: 0.01em;
+    }
+
+    /* ─── Pull-quote ─────────────────────────────────────────── */
+    .pull-quote {
+      padding: 5rem 0;
+      border-bottom: 1px solid var(--rule);
+      overflow: hidden;
+    }
+    .pull-quote__text {
+      font-family: var(--f-display);
+      font-size: clamp(3.5rem, 9vw, 7.5rem);
+      font-style: italic;
+      font-weight: 700;
+      line-height: 1.0;
+      color: var(--ink);
+      text-align: right;
+      white-space: nowrap;
+      transition: letter-spacing 0.4s var(--ease);
+    }
+    .pull-quote:hover .pull-quote__text { letter-spacing: 0.01em; }
+
+    /* ─── Clients ────────────────────────────────────────────── */
+    .clients {
+      padding: 5rem 0;
+      border-bottom: 1px solid var(--rule);
+    }
+    .clients__grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0;
+    }
+    .client-item {
+      width: 20%;
+      border-right: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.75rem 1.25rem;
+      transition: background 0.2s var(--ease);
+    }
+    .client-item:hover { background: #f8faf9; }
+    @media (max-width: 900px) {
+      .client-item { width: 25%; }
+    }
+    @media (max-width: 600px) {
+      .client-item { width: 33.333%; }
+    }
+    .client-item img {
+      max-height: 2.5rem;
+      max-width: 7rem;
+      width: auto;
+      object-fit: contain;
+      opacity: 0.45;
+      filter: grayscale(100%);
+      transition: opacity 0.2s var(--ease), filter 0.2s var(--ease);
+    }
+    .client-item:hover img { opacity: 1; filter: grayscale(0%); }
+
+    /* ─── CTA ────────────────────────────────────────────────── */
+    .cta {
+      padding: 7rem 0;
+      border-bottom: 1px solid var(--rule);
+    }
+    .cta__inner {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: end;
+      gap: 3rem;
+    }
+    @media (max-width: 640px) {
+      .cta__inner { grid-template-columns: 1fr; }
+    }
+    .cta__heading {
+      font-family: var(--f-display);
+      font-size: clamp(2rem, 5vw, 3.75rem);
+      font-weight: 700;
+      line-height: 1.1;
+      color: var(--ink);
+    }
+    .cta__heading em { font-style: italic; color: var(--lime-dark); }
+    .cta__sub {
+      font-size: 0.9375rem;
+      color: var(--muted);
+      font-weight: 300;
+      margin-top: 1.25rem;
+      max-width: 46ch;
+      line-height: 1.7;
+    }
+
+    /* ─── Footer ─────────────────────────────────────────────── */
+    .site-footer {
+      background: var(--ink);
+      color: rgba(255,255,255,0.55);
+      padding: 3.5rem 0 2.5rem;
+    }
+    .site-footer__top {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      padding-bottom: 2.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      margin-bottom: 1.75rem;
+    }
+    @media (max-width: 640px) {
+      .site-footer__top { grid-template-columns: 1fr; gap: 2rem; }
+    }
+    .site-footer__brand {
+      font-family: var(--f-display);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--lime);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+    .site-footer__tagline {
+      font-size: 0.8125rem;
+      line-height: 1.6;
+      font-weight: 300;
+      max-width: 32ch;
+    }
+    .site-footer__contact {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      font-size: 0.8125rem;
+      line-height: 1.8;
+      text-align: right;
+    }
+    @media (max-width: 640px) {
+      .site-footer__contact { text-align: left; }
+    }
+    .site-footer__contact a {
+      color: rgba(255,255,255,0.55);
+      transition: color 0.2s;
+    }
+    .site-footer__contact a:hover { color: var(--lime); }
+    .site-footer__bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .site-footer__copy {
+      font-size: 0.75rem;
+      letter-spacing: 0.04em;
+    }
+    .site-footer__nav {
+      display: flex;
+      gap: 2rem;
+    }
+    .site-footer__nav a {
+      font-size: 0.75rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-weight: 500;
+      color: rgba(255,255,255,0.35);
+      transition: color 0.2s;
+    }
+    .site-footer__nav a:hover { color: var(--white); }
+
+    /* ─── Page-load fade-in ──────────────────────────────────── */
+    @keyframes fadein {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .hero__title  { animation: fadein 0.7s var(--ease) 0.05s both; }
+    .hero__footer { animation: fadein 0.7s var(--ease) 0.2s  both; }
+    .hero__index  { animation: fadein 0.5s var(--ease) 0.35s both; }
+  </style>
+</head>
+<body>
+
+  <!-- ── Header ──────────────────────────────────────────────── -->
+  <header class="site-header">
+    <div class="wrap site-header__inner">
+      <a href="index.html" class="site-header__logo">Aksent</a>
+
+      <button class="site-header__toggle" type="button"
+              aria-label="Toggle menu" aria-expanded="false"
+              aria-controls="site-nav">
+        <span></span><span></span><span></span>
+      </button>
+
+      <nav id="site-nav" class="site-nav" role="navigation">
+        <ul class="site-nav__list">
+          <li><a href="index.html" class="site-nav__link site-nav__link--active">Home</a></li>
+          <li><a href="work.html"  class="site-nav__link">Our Work</a></li>
+          <li><a href="about.html" class="site-nav__link">About</a></li>
+          <li><a href="contact.html" class="site-nav__link">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ── Hero ────────────────────────────────────────────────── -->
+    <section class="hero">
+      <div class="hero__canvas">
+
+        <!-- Sliding backgrounds -->
+        <div class="hero__slides" aria-hidden="true">
+          <div class="hero__slide hero__slide--1 is-active"></div>
+          <div class="hero__slide hero__slide--2"></div>
+          <div class="hero__slide hero__slide--3"></div>
+        </div>
+
+        <!-- Content — unchanged -->
+        <div class="wrap">
+          <span class="hero__index">Knowledge&nbsp;/ Design&nbsp;/ Communication</span>
+          <h1 class="hero__title">
+            Clarity is<br />
+            <em>structure.</em>
+          </h1>
+          <div class="hero__footer">
+            <p class="hero__lead">
+              AKSENT translates complex work into communication people understand.
+              Research, institutions, and brands rely on clarity to move ideas across audiences.
+            </p>
+            <div class="hero__actions">
+              <a href="work.html" class="btn-primary">View our work</a>
+              <a href="contact.html" class="btn-ghost">Start a conversation</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Carousel nav -->
+        <nav class="hero__nav" aria-label="Hero slides">
+          <div class="hero__progress"><div class="hero__progress-fill" id="heroFill"></div></div>
+          <div class="hero__nav-dots">
+            <button class="hero__dot is-active" aria-label="Slide 1" data-slide="0"></button>
+            <button class="hero__dot" aria-label="Slide 2" data-slide="1"></button>
+            <button class="hero__dot" aria-label="Slide 3" data-slide="2"></button>
+          </div>
+        </nav>
+
+      </div>
+    </section>
+
+    <!-- ── Selected Work ───────────────────────────────────────── -->
+    <section class="work">
+      <div class="wrap">
+        <div class="work__header">
+          <span class="section-label" style="margin-bottom:0">Selected work</span>
+          <a href="work.html" class="work__all">All projects →</a>
+        </div>
+        <div class="work-list">
+
+          <a href="work.html#amcham" class="work-row">
+            <div class="work-row__media">
+              <img src="../public/projects/amcham/01.png" alt="American Chamber of Commerce Kenya" />
+            </div>
+            <div class="work-row__body">
+              <div class="work-row__top">
+                <span class="work-row__num">01</span>
+                <span class="work-row__cat">Campaign Communication</span>
+                <h3 class="work-row__name">American Chamber of Commerce Kenya</h3>
+                <p class="work-row__desc">Business summit brand development for AMCHAM Kenya.</p>
+              </div>
+              <span class="work-row__cta">View project →</span>
+            </div>
+          </a>
+
+          <a href="work.html#hivos" class="work-row">
+            <div class="work-row__media">
+              <img src="../public/projects/hivos/01.png" alt="Hivos" />
+            </div>
+            <div class="work-row__body">
+              <div class="work-row__top">
+                <span class="work-row__num">02</span>
+                <span class="work-row__cat">Campaign Communication</span>
+                <h3 class="work-row__name">Hivos</h3>
+                <p class="work-row__desc">Knowledge publication and campaign design for Hivos.</p>
+              </div>
+              <span class="work-row__cta">View project →</span>
+            </div>
+          </a>
+
+          <a href="work.html#womankind" class="work-row">
+            <div class="work-row__media">
+              <img src="../public/projects/womankind-worldwide/01.png" alt="WomanKind Worldwide" />
+            </div>
+            <div class="work-row__body">
+              <div class="work-row__top">
+                <span class="work-row__num">03</span>
+                <span class="work-row__cat">Knowledge Publication</span>
+                <h3 class="work-row__name">WomanKind Worldwide</h3>
+                <p class="work-row__desc">Knowledge publication and policy brief design for WomanKind Worldwide.</p>
+              </div>
+              <span class="work-row__cta">View project →</span>
+            </div>
+          </a>
+
+          <a href="work.html#krk" class="work-row">
+            <div class="work-row__media">
+              <img src="../public/projects/krk-advocates/01.png" alt="KRK Advocates" />
+            </div>
+            <div class="work-row__body">
+              <div class="work-row__top">
+                <span class="work-row__num">04</span>
+                <span class="work-row__cat">Brand System</span>
+                <h3 class="work-row__name">KRK Advocates</h3>
+                <p class="work-row__desc">Legal brand and communication system for KRK Advocates.</p>
+              </div>
+              <span class="work-row__cta">View project →</span>
+            </div>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Services ────────────────────────────────────────────── -->
+    <section class="services">
+      <div class="wrap">
+        <span class="section-label">What we do</span>
+        <div class="services__layout">
+          <div>
+            <p class="services__headline">
+              We work with organisations that produce
+              <em>complex knowledge.</em>
+            </p>
+          </div>
+          <div>
+            <ul class="services__list">
+              <li class="services__item">
+                <span class="services__num">01</span>
+                <span class="services__name">Campaign communication</span>
+              </li>
+              <li class="services__item">
+                <span class="services__num">02</span>
+                <span class="services__name">Research and publication design</span>
+              </li>
+              <li class="services__item">
+                <span class="services__num">03</span>
+                <span class="services__name">Institutional storytelling</span>
+              </li>
+              <li class="services__item">
+                <span class="services__num">04</span>
+                <span class="services__name">Brand and communication systems</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Pull-quote ───────────────────────────────────────────── -->
+    <section class="pull-quote">
+      <div class="wrap">
+        <p class="pull-quote__text">Design is structure.</p>
+      </div>
+    </section>
+
+    <!-- ── Clients ─────────────────────────────────────────────── -->
+    <section class="clients">
+      <div class="wrap">
+        <span class="section-label">Trusted by</span>
+        <div class="clients__grid">
+          <div class="client-item"><img src="../public/client-logos/Acorn-Law-Logo-white-bg.jpg"   alt="Acorn Law" /></div>
+          <div class="client-item"><img src="../public/client-logos/ACRE-LOGO-2.png"                alt="ACRE" /></div>
+          <div class="client-item"><img src="../public/client-logos/Enaai.png"                      alt="Enaai" /></div>
+          <div class="client-item"><img src="../public/client-logos/Hivos-logo.png"                 alt="Hivos" /></div>
+          <div class="client-item"><img src="../public/client-logos/Icpac-logo.png"                 alt="ICPAC" /></div>
+          <div class="client-item"><img src="../public/client-logos/Kalua-Farms-logos-4-8217.jpg"   alt="Kalua Farms" /></div>
+          <div class="client-item"><img src="../public/client-logos/KBP-Logo-01.jpg"                alt="KBP" /></div>
+          <div class="client-item"><img src="../public/client-logos/KRK-Advocates-Logo.png"         alt="KRK Advocates" /></div>
+          <div class="client-item"><img src="../public/client-logos/PolycomGirls.svg"               alt="PolycomGirls" /></div>
+          <div class="client-item"><img src="../public/client-logos/WomanKindWorldwide.png"         alt="WomanKind Worldwide" /></div>
+          <div class="client-item"><img src="../public/client-logos/Pill-Box.png"                   alt="Pill Box" /></div>
+          <div class="client-item"><img src="../public/client-logos/Yash-Poles.png"                 alt="Yash Poles" /></div>
+          <div class="client-item"><img src="../public/client-logos/NAL.png"                        alt="NAL" /></div>
+          <div class="client-item"><img src="../public/client-logos/Lots-And-Mortar.png"            alt="Lots &amp; Mortar" /></div>
+          <div class="client-item"><img src="../public/client-logos/Last-Village-Lodge.png"         alt="The Last Village Lodge" /></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── CTA ─────────────────────────────────────────────────── -->
+    <section class="cta">
+      <div class="wrap">
+        <div class="cta__inner">
+          <div>
+            <h2 class="cta__heading">
+              Ready to work<br /><em>together?</em>
+            </h2>
+            <p class="cta__sub">
+              We translate complex work into communication people understand.
+              Clarity is not a finish — it is a foundation.
+            </p>
+          </div>
+          <a href="contact.html" class="btn-primary">Start a conversation</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ── Footer ──────────────────────────────────────────────── -->
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="site-footer__top">
+        <div>
+          <p class="site-footer__brand">Aksent</p>
+          <p class="site-footer__tagline">
+            Knowledge Systems · Strategic Communication · Design Intelligence
+          </p>
+        </div>
+        <div class="site-footer__contact">
+          <a href="tel:+254722311089">+254 722 311 089</a>
+          <a href="mailto:hello@aksent.co.ke">hello@aksent.co.ke</a>
+          <span>Jabavu Road, Kilimani · Nairobi, Kenya</span>
+          <a href="https://www.aksent.co.ke" target="_blank" rel="noopener noreferrer">www.aksent.co.ke</a>
+        </div>
+      </div>
+      <div class="site-footer__bottom">
+        <p class="site-footer__copy">© AKSENT. All rights reserved.</p>
+        <nav class="site-footer__nav">
+          <a href="work.html">Work</a>
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const toggle = document.querySelector('.site-header__toggle');
+    const nav    = document.getElementById('site-nav');
+    const links  = nav?.querySelectorAll('a');
+
+    function syncTabindex(open) {
+      const mobile = window.innerWidth < 768;
+      links?.forEach(l => l.setAttribute('tabindex', (!mobile || open) ? '0' : '-1'));
+    }
+
+    syncTabindex(false);
+
+    toggle?.addEventListener('click', () => {
+      const open = nav.classList.toggle('site-nav--open');
+      toggle.setAttribute('aria-expanded', String(open));
+      syncTabindex(open);
+    });
+
+    window.addEventListener('resize', () => {
+      syncTabindex(nav.classList.contains('site-nav--open'));
+    });
+  </script>
+  <script>
+    /* ── Hero carousel ── */
+    const slides   = document.querySelectorAll('.hero__slide');
+    const dots     = document.querySelectorAll('.hero__dot');
+    const fill     = document.getElementById('heroFill');
+    const INTERVAL = 5000;
+    let current = 0, timer;
+
+    function goTo(n) {
+      slides[current].classList.remove('is-active');
+      dots[current].classList.remove('is-active');
+      current = (n + slides.length) % slides.length;
+      slides[current].classList.add('is-active');
+      dots[current].classList.add('is-active');
+      resetProgress();
+    }
+
+    function resetProgress() {
+      fill.style.transition = 'none';
+      fill.style.width = '0%';
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        fill.style.transition = 'width 4.8s linear';
+        fill.style.width = '100%';
+      }));
+    }
+
+    function startAuto() {
+      clearInterval(timer);
+      timer = setInterval(() => goTo(current + 1), INTERVAL);
+    }
+
+    dots.forEach(dot => {
+      dot.addEventListener('click', () => {
+        goTo(Number(dot.dataset.slide));
+        startAuto();
+      });
+    });
+
+    /* Pause on hover */
+    document.querySelector('.hero').addEventListener('mouseenter', () => clearInterval(timer));
+    document.querySelector('.hero').addEventListener('mouseleave', startAuto);
+
+    resetProgress();
+    startAuto();
+  </script>
+
+</body>
+</html>

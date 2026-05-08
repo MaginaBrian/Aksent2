@@ -1,0 +1,189 @@
+/* ── Carousel strip ── */
+.about-carousel {
+  position: relative;
+  width: 100%;
+  height: clamp(220px, 38vw, 480px);
+  overflow: hidden;
+  background: #eef0ef;
+  border-bottom: 1px solid var(--aksent-rule);
+}
+.about-carousel__slide {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 1s var(--ease);
+}
+.about-carousel__slide.is-active { opacity: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+  .about-carousel__slide { transition: none; }
+}
+
+/* ── Founding section ── */
+.founding {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  border-bottom: 1px solid var(--aksent-rule);
+  max-width: var(--max-width);
+  margin-inline: auto;
+  width: 100%;
+}
+@media (max-width: 767px) {
+  .founding { grid-template-columns: 1fr; }
+}
+
+.founding__year-col {
+  display: flex;
+  align-items: flex-start;
+  padding: 4rem var(--pad-x);
+}
+.founding__year {
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 8vw, 7rem);
+  font-weight: 700;
+  line-height: 1;
+  color: var(--aksent-rule);
+  user-select: none;
+}
+
+.founding__text {
+  padding: 4rem var(--pad-x);
+  border-left: 1px solid var(--aksent-rule);
+}
+@media (max-width: 767px) {
+  .founding__text { border-left: none; border-top: 1px solid var(--aksent-rule); }
+}
+
+.founding__lead {
+  font-family: var(--font-display);
+  font-size: clamp(1.125rem, 2vw, 1.5rem);
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--aksent-ink);
+  margin-bottom: 1.25rem;
+}
+
+.founding__body {
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--aksent-muted);
+  font-weight: 300;
+  max-width: 54ch;
+}
+.founding__body p { margin-bottom: 1rem; }
+.founding__body p:last-child { margin-bottom: 0; }
+
+/* ── Stats ── */
+.about-stats { border-bottom: 1px solid var(--aksent-rule); }
+
+.about-stats__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  max-width: var(--max-width);
+  margin-inline: auto;
+  width: 100%;
+}
+@media (max-width: 640px) {
+  .about-stats__grid { grid-template-columns: 1fr; }
+}
+
+.about-stat {
+  padding: 3rem var(--pad-x);
+  border-right: 1px solid var(--aksent-rule);
+}
+.about-stat:last-child { border-right: none; }
+@media (max-width: 640px) {
+  .about-stat { border-right: none; border-bottom: 1px solid var(--aksent-rule); padding: 2.5rem var(--pad-x); }
+  .about-stat:last-child { border-bottom: none; }
+}
+
+.about-stat__value {
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+  font-weight: 700;
+  color: var(--aksent-ink);
+  line-height: 1.1;
+  margin-bottom: 0.75rem;
+}
+.about-stat__value em { font-style: italic; color: var(--aksent-amethyst); }
+
+.about-stat__label {
+  display: block;
+  font-size: 0.875rem;
+  color: var(--aksent-muted);
+  line-height: 1.6;
+  font-weight: 300;
+  max-width: 22ch;
+}
+
+/* ── How we work (dark) ── */
+.how {
+  padding: 6rem 0;
+  border-bottom: 1px solid var(--aksent-rule);
+  background: var(--aksent-ink);
+  color: #ffffff;
+}
+.how__label { color: rgba(255,255,255,0.35); margin-bottom: 3rem; }
+
+.how__layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: start;
+}
+@media (max-width: 767px) {
+  .how__layout { grid-template-columns: 1fr; gap: 3rem; }
+}
+
+.how__headline {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+  font-weight: 700;
+  line-height: 1.15;
+  color: #ffffff;
+  margin: 0;
+}
+.how__headline em { font-style: italic; color: var(--aksent-lime); }
+
+.how__body {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: rgba(255,255,255,0.65);
+  font-weight: 300;
+}
+.how__body p { margin-bottom: 1.25rem; max-width: none; }
+.how__body p:last-child { margin-bottom: 0; }
+
+/* ── CTA ── */
+.about-cta { padding: 7rem 0; border-bottom: 1px solid var(--aksent-rule); }
+
+.cta__inner {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: end;
+  gap: 3rem;
+}
+@media (max-width: 640px) { .cta__inner { grid-template-columns: 1fr; } }
+
+.cta__heading {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 3.75rem);
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--aksent-ink);
+  margin-bottom: 0;
+}
+.cta__heading em { font-style: italic; color: var(--aksent-lime-dark); }
+
+.cta__sub {
+  font-size: 0.9375rem;
+  color: var(--aksent-muted);
+  font-weight: 300;
+  margin-top: 1.25rem;
+  max-width: 46ch;
+  line-height: 1.7;
+  margin-bottom: 0;
+}

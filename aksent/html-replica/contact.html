@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Get in touch with AKSENT. Start a conversation about knowledge systems, publishing, or studio work." />
+  <title>Contact — AKSENT</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="../public/favicon-32.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── Tokens ─────────────────────────────────────────────── */
+    :root {
+      --ink:           #1a2220;
+      --white:         #ffffff;
+      --lime:          #a7b841;
+      --lime-dark:     #8a9a30;
+      --amethyst:      #B317B4;
+      --amethyst-dark: #8f1290;
+      --muted:         #6b7876;
+      --rule:          #e4e8e7;
+
+      --f-display: 'Libre Baskerville', Georgia, serif;
+      --f-body:    'Source Sans 3', system-ui, sans-serif;
+
+      --pad-x: clamp(1.5rem, 5vw, 4rem);
+      --max:   76rem;
+      --ease:  cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* ─── Reset ──────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: var(--f-body);
+      font-weight: 400;
+      color: var(--ink);
+      background: var(--white);
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+    img { display: block; max-width: 100%; height: auto; }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+    main { flex: 1; }
+
+    /* ─── Layout ─────────────────────────────────────────────── */
+    .wrap {
+      width: 100%;
+      max-width: var(--max);
+      margin-inline: auto;
+      padding-inline: var(--pad-x);
+    }
+
+    /* ─── Header ─────────────────────────────────────────────── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      background: var(--white);
+      border-bottom: 1px solid var(--rule);
+    }
+    .site-header__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 4rem;
+    }
+    .site-header__logo {
+      font-family: var(--f-display);
+      font-weight: 700;
+      font-size: 1.0625rem;
+      letter-spacing: 0.06em;
+      color: var(--ink);
+      text-transform: uppercase;
+      transition: color 0.2s var(--ease);
+    }
+    .site-header__logo:hover { color: var(--lime-dark); }
+
+    .site-nav__list { display: flex; gap: 2.5rem; align-items: center; }
+    .site-nav__link {
+      font-size: 0.8125rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      transition: color 0.2s var(--ease);
+      position: relative;
+    }
+    .site-nav__link::after {
+      content: '';
+      position: absolute;
+      bottom: -2px; left: 0;
+      width: 0; height: 1px;
+      background: var(--lime);
+      transition: width 0.25s var(--ease);
+    }
+    .site-nav__link:hover,
+    .site-nav__link--active { color: var(--ink); }
+    .site-nav__link:hover::after,
+    .site-nav__link--active::after { width: 100%; }
+
+    .site-header__toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.5rem;
+    }
+    .site-header__toggle span {
+      display: block;
+      width: 22px; height: 1.5px;
+      background: var(--ink);
+      transition: transform 0.25s var(--ease), opacity 0.25s var(--ease);
+    }
+    .site-header__toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .site-header__toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+    .site-header__toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    @media (max-width: 767px) {
+      .site-header__toggle { display: flex; }
+      .site-nav {
+        position: fixed;
+        inset: 4rem 0 0;
+        background: var(--white);
+        padding: 2rem var(--pad-x);
+        transform: translateX(100%);
+        transition: transform 0.3s var(--ease);
+        z-index: 199;
+        border-top: 1px solid var(--rule);
+      }
+      .site-nav--open { transform: translateX(0); }
+      .site-nav__list { flex-direction: column; align-items: flex-start; gap: 0; }
+      .site-nav__link {
+        display: block;
+        padding: 1rem 0;
+        font-size: 1rem;
+        border-bottom: 1px solid var(--rule);
+        width: 100%;
+      }
+      .site-nav__link::after { display: none; }
+    }
+
+    /* ─── Page hero ──────────────────────────────────────────── */
+    .page-hero {
+      border-bottom: 1px solid var(--rule);
+      padding: 5rem 0 4rem;
+      position: relative;
+      background-image: radial-gradient(circle, rgba(26,34,32,0.10) 1.5px, transparent 1.5px);
+      background-size: 28px 28px;
+      animation: dot-drift 12s linear infinite;
+    }
+    @keyframes dot-drift {
+      from { background-position: 0 0; }
+      to   { background-position: 28px 28px; }
+    }
+    .page-hero__label {
+      display: block;
+      font-size: 0.6875rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1.75rem;
+      animation: fadein 0.6s var(--ease) 0.05s both;
+    }
+    .page-hero__title {
+      font-family: var(--f-display);
+      font-size: clamp(2.75rem, 6vw, 5rem);
+      font-weight: 700;
+      line-height: 1.06;
+      color: var(--ink);
+      white-space: nowrap;
+      margin-bottom: 0;
+      animation: fadein 0.7s var(--ease) 0.15s both;
+    }
+    .page-hero__title em { font-style: italic; color: var(--lime-dark); }
+
+    @keyframes fadein {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ─── Contact body ───────────────────────────────────────── */
+    .contact {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 60vh;
+      max-width: var(--max);
+      margin-inline: auto;
+      width: 100%;
+    }
+    @media (max-width: 767px) {
+      .contact { grid-template-columns: 1fr; }
+    }
+
+    /* Left: details panel */
+    .contact__details {
+      padding: 5rem var(--pad-x);
+      display: flex;
+      flex-direction: column;
+      gap: 3rem;
+    }
+    @media (max-width: 767px) {
+      .contact__details {
+        border-right: none;
+        border-bottom: 1px solid var(--rule);
+        padding: 3rem var(--pad-x);
+      }
+    }
+
+    .contact__intro {
+      font-size: 1rem;
+      line-height: 1.75;
+      color: var(--muted);
+      font-weight: 300;
+      max-width: 38ch;
+    }
+
+    .contact__items { display: flex; flex-direction: column; gap: 0; }
+
+    .contact__item {
+      display: flex;
+      flex-direction: column;
+      padding: 1.5rem 0;
+      border-bottom: 1px solid var(--rule);
+    }
+    .contact__item:first-child { border-top: 1px solid var(--rule); }
+
+    .contact__item-label {
+      font-size: 0.6875rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.4rem;
+    }
+    .contact__item-value {
+      font-family: var(--f-display);
+      font-size: 1rem;
+      font-weight: 400;
+      color: var(--ink);
+      line-height: 1.5;
+      transition: color 0.2s var(--ease);
+    }
+    a.contact__item-value:hover { color: var(--lime-dark); }
+
+    /* Right: floating statement panel */
+    .contact__statement-wrap {
+      padding: 1.5rem 1.5rem 1.5rem 0;
+      background: var(--white);
+    }
+    .contact__statement {
+      padding: 3.5rem 2.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: var(--lime);
+      height: 100%;
+      box-shadow: 0 8px 40px rgba(26,34,32,0.12);
+    }
+    @media (max-width: 767px) {
+      .contact__statement-wrap { padding: 0 1.5rem 1.5rem; }
+      .contact__statement { padding: 2.5rem 2rem; }
+    }
+
+    .contact__statement-label {
+      font-size: 0.6875rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: auto;
+    }
+
+    .contact__statement-heading {
+      font-family: var(--f-display);
+      font-size: clamp(2rem, 4vw, 3.25rem);
+      font-weight: 700;
+      line-height: 1.15;
+      color: var(--white);
+      margin: 3rem 0 2.5rem;
+    }
+    .contact__statement-heading em {
+      font-style: italic;
+      color: var(--ink);
+    }
+
+    .contact__statement-sub {
+      font-size: 0.9375rem;
+      color: rgba(255,255,255,0.75);
+      font-weight: 300;
+      line-height: 1.7;
+      max-width: 34ch;
+      margin-bottom: 2.5rem;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      padding: 0.75rem 1.75rem;
+      background: var(--amethyst);
+      color: var(--white);
+      font-family: var(--f-body);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: background 0.2s var(--ease);
+      width: fit-content;
+    }
+    .btn-primary:hover { background: var(--amethyst-dark); }
+
+    /* ─── Footer ─────────────────────────────────────────────── */
+    .site-footer {
+      background: var(--ink);
+      color: rgba(255,255,255,0.55);
+      padding: 3.5rem 0 2.5rem;
+    }
+    .site-footer__top {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      padding-bottom: 2.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      margin-bottom: 1.75rem;
+    }
+    @media (max-width: 640px) {
+      .site-footer__top { grid-template-columns: 1fr; gap: 2rem; }
+    }
+    .site-footer__brand {
+      font-family: var(--f-display);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--lime);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+    .site-footer__tagline {
+      font-size: 0.8125rem;
+      line-height: 1.6;
+      font-weight: 300;
+      max-width: 32ch;
+    }
+    .site-footer__contact {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      font-size: 0.8125rem;
+      line-height: 1.8;
+      text-align: right;
+    }
+    @media (max-width: 640px) { .site-footer__contact { text-align: left; } }
+    .site-footer__contact a { color: rgba(255,255,255,0.55); transition: color 0.2s; }
+    .site-footer__contact a:hover { color: var(--lime); }
+    .site-footer__bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .site-footer__copy { font-size: 0.75rem; letter-spacing: 0.04em; }
+    .site-footer__nav { display: flex; gap: 2rem; }
+    .site-footer__nav a {
+      font-size: 0.75rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-weight: 500;
+      color: rgba(255,255,255,0.35);
+      transition: color 0.2s;
+    }
+    .site-footer__nav a:hover { color: var(--white); }
+  </style>
+</head>
+<body>
+
+  <!-- ── Header ──────────────────────────────────────────────── -->
+  <header class="site-header">
+    <div class="wrap site-header__inner">
+      <a href="index.html" class="site-header__logo">Aksent</a>
+
+      <button class="site-header__toggle" type="button"
+              aria-label="Toggle menu" aria-expanded="false"
+              aria-controls="site-nav">
+        <span></span><span></span><span></span>
+      </button>
+
+      <nav id="site-nav" class="site-nav" role="navigation">
+        <ul class="site-nav__list">
+          <li><a href="index.html"   class="site-nav__link">Home</a></li>
+          <li><a href="work.html"    class="site-nav__link">Our Work</a></li>
+          <li><a href="about.html"   class="site-nav__link">About</a></li>
+          <li><a href="contact.html" class="site-nav__link site-nav__link--active">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ── Page hero ───────────────────────────────────────────── -->
+    <section class="page-hero">
+      <div class="wrap">
+        <span class="page-hero__label">Get in touch</span>
+        <h1 class="page-hero__title">Let's <em>talk.</em></h1>
+      </div>
+    </section>
+
+    <!-- ── Contact body ────────────────────────────────────────── -->
+    <div class="contact">
+
+      <!-- Left: contact details -->
+      <div class="contact__details">
+        <p class="contact__intro">
+          Start a conversation to discuss knowledge systems, publishing, or studio work. We typically respond within 1–2 business days.
+        </p>
+
+        <div class="contact__items">
+          <div class="contact__item">
+            <span class="contact__item-label">Phone</span>
+            <a href="tel:+254722311089" class="contact__item-value">+254 722 311 089</a>
+          </div>
+          <div class="contact__item">
+            <span class="contact__item-label">Email</span>
+            <a href="mailto:hello@aksent.co.ke" class="contact__item-value">hello@aksent.co.ke</a>
+          </div>
+          <div class="contact__item">
+            <span class="contact__item-label">Address</span>
+            <span class="contact__item-value">Jabavu Road, Kilimani<br />Nairobi, Kenya</span>
+          </div>
+          <div class="contact__item">
+            <span class="contact__item-label">Web</span>
+            <a href="https://www.aksent.co.ke" target="_blank" rel="noopener noreferrer" class="contact__item-value">www.aksent.co.ke</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: statement panel -->
+      <div class="contact__statement-wrap">
+        <div class="contact__statement">
+        <span class="contact__statement-label">AKSENT Studio</span>
+        <div>
+          <h2 class="contact__statement-heading">
+            Clarity is not a finish —<br />it is a <em>foundation.</em>
+          </h2>
+          <p class="contact__statement-sub">
+            For projects, collaborations, or general enquiries, reach out via email or phone.
+          </p>
+          <a href="mailto:hello@aksent.co.ke" class="btn-primary">Send us an email</a>
+        </div>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- ── Footer ──────────────────────────────────────────────── -->
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="site-footer__top">
+        <div>
+          <p class="site-footer__brand">Aksent</p>
+          <p class="site-footer__tagline">
+            Knowledge Systems · Strategic Communication · Design Intelligence
+          </p>
+        </div>
+        <div class="site-footer__contact">
+          <a href="tel:+254722311089">+254 722 311 089</a>
+          <a href="mailto:hello@aksent.co.ke">hello@aksent.co.ke</a>
+          <span>Jabavu Road, Kilimani · Nairobi, Kenya</span>
+          <a href="https://www.aksent.co.ke" target="_blank" rel="noopener noreferrer">www.aksent.co.ke</a>
+        </div>
+      </div>
+      <div class="site-footer__bottom">
+        <p class="site-footer__copy">© AKSENT. All rights reserved.</p>
+        <nav class="site-footer__nav">
+          <a href="work.html">Work</a>
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const toggle = document.querySelector('.site-header__toggle');
+    const nav    = document.getElementById('site-nav');
+    const links  = nav?.querySelectorAll('a');
+
+    function syncTabindex(open) {
+      const mobile = window.innerWidth < 768;
+      links?.forEach(l => l.setAttribute('tabindex', (!mobile || open) ? '0' : '-1'));
+    }
+    syncTabindex(false);
+    toggle?.addEventListener('click', () => {
+      const open = nav.classList.toggle('site-nav--open');
+      toggle.setAttribute('aria-expanded', String(open));
+      syncTabindex(open);
+    });
+    window.addEventListener('resize', () => {
+      syncTabindex(nav.classList.contains('site-nav--open'));
+    });
+  </script>
+</body>
+</html>
