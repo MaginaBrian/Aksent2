@@ -4,8 +4,9 @@ import multer from 'multer';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { mergeSite } from './siteDefaults.js';
 import { ensureDataSeeded, readData, updateData } from './storage.js';
-import { requireAdmin } from './auth.js';
+import { destroySession, getSession, loginWithPassword, requireAdmin } from './auth.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -28,8 +29,20 @@ const app = express();
 app.use(cors());
 app.use(express.json({ limit: '2mb' }));
 
-// Admin UI (simple static page)
-app.use('/admin', express.static(ADMIN_PUBLIC_DIR));
+// Admin UI at /admin only (no trailing slash)
+function sendAdminIndex(_req, res) {
+  res.setHeader('X-Frame-Options', 'DENY');
+  res.setHeader('Content-Security-Policy', "frame-ancestors 'none'");
+  res.sendFile(path.join(ADMIN_PUBLIC_DIR, 'index.html'));
+}
+app.use((req, res, next) => {
+  if (req.method === 'GET' && req.originalUrl.split('?')[0] === '/admin/') {
+    return res.redirect(301, '/admin');
+  }
+  next();
+});
+app.get('/admin', sendAdminIndex);
+app.use('/admin', express.static(ADMIN_PUBLIC_DIR, { index: false }));
 
 // Serve uploaded assets (and any existing public assets).
 app.use('/uploads', express.static(UPLOADS_DIR));
@@ -61,6 +74,36 @@ function logoUploadDir() {
   return path.join(UPLOADS_DIR, 'client-logos');
 }
 
+const SITE_MEDIA_FOLDERS = {
+  hero: { arrayKey: 'home.heroSlides', subdir: 'hero' },
+  'about-carousel': { arrayKey: 'about.carouselImages', subdir: 'about-carousel' },
+};
+
+function setNestedArray(obj, keyPath, value) {
+  const [section, field] = keyPath.split('.');
+  if (!obj[section]) obj[section] = {};
+  obj[section][field] = value;
+}
+
+function getNestedArray(obj, keyPath) {
+  const [section, field] = keyPath.split('.');
+  return obj[section]?.[field] ?? [];
+}
+
+function deepMergeSite(existing, patch) {
+  const base = mergeSite(existing);
+  const out = structuredClone(base);
+  for (const [section, values] of Object.entries(patch || {})) {
+    if (values && typeof values === 'object' && !Array.isArray(values)) {
+      out[section] = { ...(out[section] || {}), ...values };
+      for (const k of Object.keys(values)) {
+        if (Array.isArray(values[k])) out[section][k] = values[k];
+      }
+    }
+  }
+  return out;
+}
+
 const upload = multer({
   storage: multer.diskStorage({
     destination(req, file, cb) {
@@ -77,6 +120,26 @@ const upload = multer({
 
 // Health
 app.get('/api/health', (req, res) => res.json({ ok: true }));
+
+// Auth (email + password)
+app.post('/api/auth/login', (req, res) => {
+  const { email, password } = req.body ?? {};
+  const token = loginWithPassword(email, password);
+  if (!token) {
+    return res.status(401).json({ error: 'Invalid email or password' });
+  }
+  res.json({ ok: true, token, email: String(email).trim().toLowerCase() });
+});
+
+app.post('/api/auth/logout', (req, res) => {
+  const session = getSession(req);
+  if (session) destroySession(session.token);
+  res.json({ ok: true });
+});
+
+app.get('/api/auth/me', requireAdmin, (req, res) => {
+  res.json({ ok: true, email: req.adminSession.email });
+});
 
 // ----- Projects -----
 app.get('/api/projects', (req, res) => {
@@ -177,6 +240,118 @@ app.post('/api/projects/:slug/images', requireAdmin, upload.single('file'), (req
 
   if (!updated) return res.status(404).json({ error: 'Project not found' });
   res.status(201).json({ url, project: updated });
+});
+
+// Remove one image from a project (by URL path).
+app.delete('/api/projects/:slug/images', requireAdmin, (req, res) => {
+  const slug = req.params.slug;
+  const url = String(req.query?.url || '').trim();
+  if (!url) return res.status(400).json({ error: 'url query param is required' });
+
+  let updated = null;
+  updateData((d) => {
+    const idx = d.projects.findIndex((p) => p.slug === slug);
+    if (idx < 0) return d;
+    const p = ensureProjectShape(d.projects[idx]);
+    const before = p.images.length;
+    p.images = p.images.filter((img) => img !== url);
+    if (p.images.length === before) return d;
+    d.projects[idx] = p;
+    updated = p;
+    return d;
+  });
+
+  if (!updated) return res.status(404).json({ error: 'Project or image not found' });
+  res.json({ ok: true, project: updated });
+});
+
+// ----- Site content -----
+app.get('/api/site', (req, res) => {
+  const data = readData();
+  res.json(data.site);
+});
+
+app.put('/api/site', requireAdmin, (req, res) => {
+  const body = req.body ?? {};
+  let updated = null;
+  updateData((d) => {
+    d.site = deepMergeSite(d.site, body);
+    updated = d.site;
+    return d;
+  });
+  res.json(updated);
+});
+
+// Upload media: hero slide, about carousel image, or site logo.
+app.post('/api/site/media/:kind', requireAdmin, upload.single('file'), (req, res) => {
+  const kind = req.params.kind;
+  if (!req.file) return res.status(400).json({ error: 'file is required (multipart field "file")' });
+
+  if (kind === 'logo') {
+    const destDir = path.join(UPLOADS_DIR, 'site');
+    fs.mkdirSync(destDir, { recursive: true });
+    const destPath = path.join(destDir, req.file.filename);
+    fs.renameSync(req.file.path, destPath);
+    const url = `/uploads/site/${req.file.filename}`;
+    let site = null;
+    updateData((d) => {
+      d.site = deepMergeSite(d.site, { global: { logoUrl: url } });
+      site = d.site;
+      return d;
+    });
+    return res.status(201).json({ url, site });
+  }
+
+  const cfg = SITE_MEDIA_FOLDERS[kind];
+  if (!cfg) return res.status(400).json({ error: 'kind must be hero, about-carousel, or logo' });
+
+  const destDir = path.join(UPLOADS_DIR, cfg.subdir);
+  fs.mkdirSync(destDir, { recursive: true });
+  const destPath = path.join(destDir, req.file.filename);
+  fs.renameSync(req.file.path, destPath);
+  const url = `/uploads/${cfg.subdir}/${req.file.filename}`;
+
+  let site = null;
+  updateData((d) => {
+    d.site = mergeSite(d.site);
+    const arr = [...getNestedArray(d.site, cfg.arrayKey), url];
+    setNestedArray(d.site, cfg.arrayKey, arr);
+    site = d.site;
+    return d;
+  });
+
+  res.status(201).json({ url, site });
+});
+
+// Remove URL from hero or about carousel list.
+app.delete('/api/site/media/:kind', requireAdmin, (req, res) => {
+  const kind = req.params.kind;
+  const url = String(req.query?.url || '').trim();
+  if (!url) return res.status(400).json({ error: 'url query param is required' });
+
+  if (kind === 'logo') {
+    let site = null;
+    updateData((d) => {
+      d.site = deepMergeSite(d.site, { global: { logoUrl: '/aksent-logo.png' } });
+      site = d.site;
+      return d;
+    });
+    return res.json({ ok: true, site });
+  }
+
+  const cfg = SITE_MEDIA_FOLDERS[kind];
+  if (!cfg) return res.status(400).json({ error: 'kind must be hero, about-carousel, or logo' });
+
+  let site = null;
+  updateData((d) => {
+    d.site = mergeSite(d.site);
+    const arr = getNestedArray(d.site, cfg.arrayKey).filter((u) => u !== url);
+    setNestedArray(d.site, cfg.arrayKey, arr);
+    site = d.site;
+    return d;
+  });
+
+  res.json({ ok: true, site });
 });
 
 // ----- Client logos -----

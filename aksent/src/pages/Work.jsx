@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { fetchProjects } from '../api/content';
+import { useSite } from '../context/SiteContent';
 import './Page.css';
 import './Work.css';
 
@@ -30,6 +31,8 @@ function derivePrimary(project) {
 }
 
 export default function Work() {
+  const { site } = useSite();
+  const work = site?.work;
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState(null);
@@ -107,10 +110,12 @@ export default function Work() {
       {/* ── Hero ── */}
       <section className="page-hero">
         <div className="container">
-          <span className="page-hero__label">Selected projects</span>
-          <h1 className="page-hero__title">Our <em>work.</em></h1>
+          <span className="page-hero__label">{work?.heroLabel ?? 'Selected projects'}</span>
+          <h1 className="page-hero__title">
+            {work?.heroTitleLine1 ?? 'Our'} <em>{work?.heroTitleEmphasis ?? 'work.'}</em>
+          </h1>
           <p className="page-hero__lead">
-            We structure complex work into communication systems that move across audiences, institutions, and public space.
+            {work?.heroLead ?? 'We structure complex work into communication systems that move across audiences, institutions, and public space.'}
           </p>
         </div>
 
@@ -179,14 +184,13 @@ export default function Work() {
           <div className="cta__inner">
             <div>
               <h2 className="cta__heading">
-                Ready to work<br /><em>together?</em>
+                {work?.ctaHeadingLine1 ?? 'Ready to work'}<br /><em>{work?.ctaHeadingEmphasis ?? 'together?'}</em>
               </h2>
               <p className="cta__sub">
-                We translate complex work into communication people understand.
-                Clarity is not a finish — it is a foundation.
+                {work?.ctaSub ?? 'We translate complex work into communication people understand. Clarity is not a finish — it is a foundation.'}
               </p>
             </div>
-            <Link to="/contact" className="btn-primary">Start a conversation</Link>
+            <Link to="/contact" className="btn-primary">{work?.ctaButton ?? 'Start a conversation'}</Link>
           </div>
         </div>
       </section>

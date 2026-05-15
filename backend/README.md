@@ -12,7 +12,7 @@ AKSENT_ADMIN_TOKEN=devtoken PORT=3001 npm run start
 
 Then open the admin UI:
 
-- `http://localhost:3001/admin/admin.html`
+- `http://127.0.0.1:3001/admin` (or via Vite at `http://127.0.0.1:5173/admin`)
 
 ## Data + uploads
 

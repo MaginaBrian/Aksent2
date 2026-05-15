@@ -19,3 +19,7 @@ export async function fetchClientLogos() {
   return await apiGet('/api/client-logos');
 }
 
+export async function fetchSite() {
+  return await apiGet('/api/site');
+}
+

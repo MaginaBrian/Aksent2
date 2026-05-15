@@ -27,6 +27,14 @@
 }
 .site-header__logo:hover { color: var(--aksent-lime-dark); }
 
+.site-header__logo-img {
+  display: block;
+  height: 36px;
+  width: auto;
+  max-width: 160px;
+  object-fit: contain;
+}
+
 /* ── Desktop nav ── */
 .site-nav__list {
   display: flex;

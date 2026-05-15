@@ -9,7 +9,7 @@ In one terminal (backend API + admin):
 ```bash
 cd backend
 npm install
-AKSENT_ADMIN_TOKEN=devtoken PORT=3001 npm run start
+AKSENT_ADMIN_EMAIL=hello@aksent.co.ke AKSENT_ADMIN_PASSWORD=aksent-admin PORT=3001 npm run start
 ```
 
 In another terminal (frontend):
@@ -22,7 +22,8 @@ npm run dev
 
 - Frontend: `http://localhost:5173`
 - Backend: `http://localhost:3001`
-- Admin dashboard: `http://localhost:3001/admin/admin.html`
+- Admin dashboard: `http://127.0.0.1:5173/admin` (or triple-click the site logo)
+- Default login: `hello@aksent.co.ke` / `aksent-admin` (override with `AKSENT_ADMIN_EMAIL` and `AKSENT_ADMIN_PASSWORD`)
 
 ## Backend (CMS-style content)
 
@@ -40,9 +41,7 @@ Uploads are served under `/uploads/...` (e.g. `/uploads/projects/<slug>/file.jpg
 
 ### Auth
 
-All write endpoints require a bearer token:
-
-`Authorization: Bearer <AKSENT_ADMIN_TOKEN>`
+Sign in at `/admin` with email and password. API writes use the session token from `POST /api/auth/login`.
 
 ### Key endpoints
 
