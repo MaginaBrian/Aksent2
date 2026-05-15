@@ -4,7 +4,7 @@ import multer from 'multer';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { readData, updateData } from './storage.js';
+import { ensureDataSeeded, readData, updateData } from './storage.js';
 import { requireAdmin } from './auth.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -22,6 +22,7 @@ const UPLOADS_DIR = process.env.AKSENT_UPLOADS_DIR
   : path.resolve(FRONTEND_PUBLIC_DIR, 'uploads');
 
 fs.mkdirSync(UPLOADS_DIR, { recursive: true });
+ensureDataSeeded();
 
 const app = express();
 app.use(cors());
