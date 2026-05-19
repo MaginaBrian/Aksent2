@@ -772,7 +772,7 @@
           await api('/api/auth/logout', { method: 'POST', headers: authHeaders() });
         } catch { /* ignore */ }
         localStorage.removeItem(SESSION_KEY);
-        showLogin();
+        window.location.href = '/';
       });
 
       tryRestoreSession();
